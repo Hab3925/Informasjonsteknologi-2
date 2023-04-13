@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="+" id="plussBil"> 
+    <input type="button" value="-" id="minusBil">
+    <p>Bil  - 65kr</p>
+    <p id="antallBil">0</p>
+    <hr>
+    <input type="button" value="+" id="plussVoksen"> 
+    <input type="button" value="-" id="minusVoksen">
+    <p>Voksen  - 35kr</p>
+    <p id="antallVoksen">0</p>
+    <hr>
+    <input type="button" value="+" id="plussBarn"> 
+    <input type="button" value="-" id="minusBarn">
+    <p>Barn  - 10kr</p>
+    <p id="antallBarn">0</p>
+    <hr>
+    <input type="button" value="+" id="plussHonør"> 
+    <input type="button" value="-" id="minusHonør">
+    <p>Honør  - 15kr</p>
+    <p id="antallHonør">0</p>
+    <hr>
+    Sum: <p id="sum">0kr</p>
+    
+    <script>
+        let plussHonør = document.getElementById("plussHonør")
+        let plussVoksen = document.getElementById("plussVoksen")
+        let plussBil = document.getElementById("plussBil")
+        let plussBarn = document.getElementById("plussBarn")
+
+        let minusHonør = document.getElementById("minusHonør")
+        let minusVoksen = document.getElementById("minusVoksen")
+        let minusBil = document.getElementById("minusBil")
+        let minusBarn = document.getElementById("minusBarn")
+
+        let antallHonør = document.getElementById("antallHonør")
+        let antallVoksen = document.getElementById("antallVoksen")
+        let antallBil = document.getElementById("antallBil")
+        let antallBarn = document.getElementById("antallBarn")
+
+        let sumE = document.getElementById("sum")
+
+        let antall = [0,0,0,0]
+        let sum = 0
+
+        plussHonør.addEventListener('click', () => {
+            antall[0]++
+            sum += 15
+            sumE.innerHTML = sum + "kr"
+            antallHonør.innerHTML = antall[0]
+
+        })
+
+        plussVoksen.addEventListener('click', () => {
+            antall[1]++
+            sum += 35
+            sumE.innerHTML = sum + "kr"
+            antallVoksen.innerHTML = antall[1]
+        })
+
+        plussBil.addEventListener('click', () => {
+            antall[2]++
+            sum += 65
+            sumE.innerHTML = sum + "kr"
+            antallBil.innerHTML = antall[2]
+        })
+
+        plussBarn.addEventListener('click', () => {
+            antall[3]++
+            sum += 10
+            sumE.innerHTML = sum + "kr"
+            antallBarn.innerHTML = antall[3]
+        })
+
+        minusHonør.addEventListener('click', () => {
+            if(antall[0] == 0) return
+            antall[0]--
+            sum -= 15
+            sumE.innerHTML = sum + "kr"
+            antallHonør.innerHTML = antall[0]
+
+        })
+
+        minusVoksen.addEventListener('click', () => {
+            if(antall[1] == 0) return
+            antall[1]--
+            sum -= 35
+            sumE.innerHTML = sum + "kr"
+            antallVoksen.innerHTML = antall[1]
+        })
+
+        minusBil.addEventListener('click', () => {
+            if(antall[2] == 0) return
+            antall[2]--
+            sum -= 65
+            sumE.innerHTML = sum + "kr"
+            antallBil.innerHTML = antall[2]
+        })
+
+        minusBarn.addEventListener('click', () => {
+            if(antall[3] == 0) return
+            antall[3]--
+            sum -= 10
+            sumE.innerHTML = sum + "kr"
+            antallBarn.innerHTML = antall[3]
+        })
+    </script>
+</body>
+</html>

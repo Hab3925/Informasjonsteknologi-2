@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Til oppgave C</title>
+</head>
+
+<body>
+
+    <div class="container-sm">
+        
+    <style>
+        code {
+          display: block;
+          white-space: pre-wrap;
+          background-color: lightgrey;
+        }
+  
+        table,
+        th,
+        td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+  
+        th,
+        td {
+          padding: 10px;
+        }
+  
+        th {
+          background-color: grey;
+        }
+        tr:hover{
+            background-color: darkgrey;
+        }
+      </style>
+      <br><br><br>
+        <h1>Oppgave C</h1>
+        <hr>
+
+        <h2>Fyll ut for å legge til firkant</h2>
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label for="bunnlinje" class="form-label">Bunnlinje</label>
+                <input type="number" id="bunnlinje" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <label for="topplinje" class="form-label">Topplinje</label>
+                <input type="number" class="form-control" id="topplinje">
+            </div>
+            <div class="col-md-3">
+                <label for="hoyde" class="form-label">Høyde</label>
+                <input type="number" class="form-control" id="hoyde">
+            </div>
+            <div class="col-md-3">
+                <label for="forskyvning" class="form-label">Forskyvning</label>
+                <input type="number" class="form-control" id="forskyvning">
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary" onclick="leggTil()">Registrer</button>
+            </div>
+
+            <br>
+            <p id="err"></p>
+            <br>
+            <table id="tabell">
+                <tr>
+                    <th>Type</th><th>Bunnlinje</th><th>Topplinje</th><th>Høyde</th><th>Forskyvning</th><th>Areal</th>
+                </tr>
+            </table>
+
+            <br><br><br><br>
+            <h1 id="titel"></h1>
+            <svg width="1200" height="1200">
+                <g>
+                    <title>Layer 1</title>
+                    <path id="firkant" d="M 0 0 L 300 0 L 300 150 L 0 150 Z" fill="#4a90d6" stroke="#222222"
+                        stroke-width="4" style="color: rgb(0, 0, 0);" />
+                </g>
+            </svg>
+        </div>
+
+        <script>
+            const bunnlinje = document.getElementById("bunnlinje")
+            const topplinje = document.getElementById("topplinje")
+            const forskyvning = document.getElementById("forskyvning")
+            const hoyde = document.getElementById("hoyde")
+            const err = document.getElementById("err")
+
+            let firkanter = [{
+                type: "Kvadrat",
+                bunnlinje: 10,
+                topplinje: 10,
+                hoyde: 10,
+                forskyvning: 0,
+                areal: 100
+            },
+            {
+                type: "Rektangel",
+                bunnlinje: 20,
+                topplinje: 20,
+                hoyde: 5,
+                forskyvning: 0,
+                areal: 100
+            },
+            {
+                type: "Paralellogram",
+                bunnlinje: 20,
+                topplinje: 20,
+                hoyde: 10,
+                forskyvning: 2,
+                areal: 200
+            },
+            {
+                type: "Trapes",
+                bunnlinje: 20,
+                topplinje: 10,
+                hoyde: 5,
+                forskyvning: 2,
+                areal: 75
+            },
+            {
+                type: "Trapes",
+                bunnlinje: 5,
+                topplinje: 3,
+                hoyde: 10,
+                forskyvning: 5,
+                areal: 40
+            }
+        ]
+
+            genererTabell()
+            tegn(firkanter[0])
+            
+            function genererTabell(){
+                tabell.innerHTML = `
+                <tr>
+                    <th>Type</th><th>Bunnlinje</th><th>Topplinje</th><th>Høyde</th><th>Forskyvning</th><th>Areal</th>
+                </tr>`
+                
+                firkanter.forEach((firkant, i) => {
+                    tabell.innerHTML += `
+                    <tr onclick="tegn(firkanter[${i}])">
+                        <td>${firkant.type}</td>
+                        <td>${firkant.bunnlinje}</td>
+                        <td>${firkant.topplinje}</td>
+                        <td>${firkant.hoyde}</td>
+                        <td>${firkant.forskyvning}</td>
+                        <td>${firkant.areal}</td>
+                    </tr>`
+                })
+            }
+ 
+            function leggTil(){
+                if(topplinje.value !== "" && bunnlinje.value !== "" && hoyde.value !== "" && forskyvning.value !== ""){
+                    let areal = Math.round(((parseInt(topplinje.value) + parseInt(bunnlinje.value)) * parseInt(hoyde.value)) / 2)
+                    let type;
+                    if(bunnlinje.value === topplinje.value && bunnlinje.value === hoyde.value && forskyvning.value == 0){
+                        type = "Kvadrat"
+                    }else if(bunnlinje.value === topplinje.value && forskyvning.value == 0){
+                        type = "Rektangel"
+                    }else if(bunnlinje.value === topplinje.value && forskyvning.value != 0){
+                        type = "Paralellogram"
+                    }else if(bunnlinje.value !== topplinje.value){
+                        type = "Trapes"
+                    }
+
+                    firkantObj = {
+                        type: type,
+                        bunnlinje: parseInt(bunnlinje.value),
+                        topplinje: parseInt(topplinje.value),
+                        hoyde: parseInt(hoyde.value),
+                        forskyvning: parseInt(forskyvning.value),
+                        areal: areal
+                    }
+                    firkanter.push(firkantObj)
+
+                    genererTabell()
+                }else {
+                    err.innerHTML = "Du må fylle ut alle feltene!"
+                }
+            }
+
+            function tegn(firkant) {
+                const firkantE = document.querySelector("#firkant");
+                const titel = document.getElementById("titel")
+                titel.innerHTML = firkant.type
+                firkantE.setAttribute(
+                    "d",
+                    `M ${firkant.forskyvning * 50} 0 L ${firkant.forskyvning * 50 + firkant.topplinje * 50} 0 L ${firkant.bunnlinje * 50} ${firkant.hoyde * 50} L 0 ${firkant.hoyde * 50} Z`
+                )
+            }
+        </script>
+    </div>
+
+</body>
+
+</html>

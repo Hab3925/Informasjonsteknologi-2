@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #antPersoner{
+            width: 120px;
+        }
+        #pris {
+            width: 50px;
+        }
+        table,
+        th,
+        td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+  
+        th,
+        td {
+          padding: 10px;
+        }
+  
+        th {
+          background-color: grey;
+        }   
+    </style>
+    <h1>2.1 Hyttetur d)</h1><hr>
+
+    <input type="number" id="antPersoner" placeholder="Antall Personer" min="1" max="5">
+    <input type="number" id="pris" placeholder="Pris" step="100" min="0">
+    <input type="button" value="Beregn priser" id="knapp">
+    <br><br><br><br>
+
+    <input type="number" id="mat" placeholder="Legg til priser på mat" min="0">
+    <input type="button" value="Legg til" id="legg til">
+    <ul id="matListe"></ul>
+
+    <br><br>
+    <p id="output"></p>
+
+    <br><br><br><br>
+
+
+    <table>
+        <caption>Kvitering</caption>
+        <tr>
+            <th></th>
+            <th>Per person</th>
+            <th>Totalt</th>
+        </tr>
+        <tr>
+            <td>Hytte</td>
+            <td id="hyttePerP"></td>
+            <td id="hytteTot"></td>
+        </tr>
+        <tr>
+            <td>Mat</td>
+            <td id="matPerP"></td>
+            <td id="matTot"></td>
+        </tr>
+        <tr>
+            <td>Sum</td>
+            <td id="sumPerP"></td>
+            <td id="sumTot"></td>
+        </tr>
+    </table>
+
+    <script>
+        const antPersE = document.getElementById("antPersoner")
+        const knapp = document.getElementById("knapp")
+        const prisE = document.getElementById("pris")
+        const output = document.getElementById("output")
+
+        const hyttePerP = document.getElementById("hyttePerP")
+        const hytteTot = document.getElementById("hytteTot")
+
+        const matPerP = document.getElementById("matPerP")
+        const matTot = document.getElementById("matTot")
+
+        const sumPerP = document.getElementById("sumPerP")
+        const sumTot = document.getElementById("sumTot")
+
+        const mat = document.getElementById("mat")
+        const leggTil = document.getElementById("legg til")
+        const matListe = document.getElementById("matListe")
+
+        let prisListe = []
+
+        leggTil.addEventListener('click', e => {
+            if(mat.value) {
+                if(mat.value < 0) return "Prisen kan ikke være lavere enn null!"
+
+                let fjern = document.createElement("input")
+                fjern.setAttribute("type", "button")
+                fjern.setAttribute("value", "fjern")
+                fjern.setAttribute("onclick", `slett(${prisListe.length})`)
+                fjern.setAttribute("id", prisListe.length)
+                prisListe.push(mat.value)
+
+                matListe.innerHTML += `<li id="${prisListe.length - 1}">${mat.value}</li>`
+                matListe.appendChild(fjern)
+
+            } else {
+                output.innerHTML = "Du må skrive prisen på matvaren din!"
+            }
+        })
+
+        function slett(id) {
+            matListe.innerHTML = matListe.innerHTML.replace(`<li id="${id}">${prisListe[id]}</li><input type="button" value="fjern" onclick="slett(${id})" id="${id}">`, '') 
+            prisListe.splice(parseInt(id), 1, null) 
+        }
+
+        knapp.addEventListener('click', e => {
+            if(antPersE.value && prisE.value){
+                if(prisE.value < 0) return output.innerHTML = "Prisen kan ikke være lavere enn null!"
+                let antPers = parseInt(antPersE.value)
+                let hyttePris = parseInt(prisE.value)
+                let matPris = 0
+
+                prisListe.forEach(pris => {
+                    if(pris == null) return
+                    matPris += parseInt(pris)
+                })
+
+                let totalpris = hyttePris + matPris
+                if(antPers <= 5 && antPers >= 1) {
+                    hyttePerP.innerHTML = `${(hyttePris/antPers).toFixed(2)}kr`
+                    hytteTot.innerHTML = `${hyttePris.toFixed(2)}kr`
+
+                    matPerP.innerHTML = `${(matPris / antPers).toFixed(2)}kr`
+                    matTot.innerHTML = `${matPris.toFixed(2)}kr`
+
+                    sumPerP.innerHTML = `${(totalpris / antPers).toFixed(2)}kr`
+                    sumTot.innerHTML = `${totalpris.toFixed(2)}kr`
+                } else{
+                    output.innerHTML = `Du må skrive et antall personer mellom 1 og 5`
+                }
+            }else{
+                output.innerHTML = `Du må skrive inn antall personer og en pris`
+            }
+        })
+    </script>
+</body>
+</html>

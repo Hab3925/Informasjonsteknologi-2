@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stein Saks Papir</title>
+</head>
+
+<body>
+    <br>
+    <h1>Stein Saks Papir</h1>
+    <br>
+    <hr>
+    <br>
+    <div id="knapp">
+
+    </div>
+    <p id="vinner"></p>
+    <br>
+    <h2>Spiller:</h2>
+    <br>
+    <p id="poengS">Poeng: 0</p>
+    <br>
+    <img src="./bilder/spiller_papir.png" alt="papir" onclick="kjør(1)">
+    <img src="./bilder/spiller_saks.png" alt="saks" onclick="kjør(2)">
+    <img src="./bilder/spiller_stein.png" alt="Stein" onclick="kjør(3)">
+    <br><br>
+    <h2>Datamaskin:</h2>
+    <br>
+    <p id="poengD">Poeng: 0</p>
+    <br>
+    <div id="maskin_valg">
+        <img src="./bilder/maskin_ukjent.png" alt="">
+    </div>
+
+    <script>
+        let maskinValg = document.getElementById("maskin_valg")
+        let vinner = document.getElementById("vinner")
+        let bilder = ["./bilder/maskin_papir.png", "./bilder/maskin_saks.png", "./bilder/maskin_stein.png"]
+        let poengD = document.getElementById("poengD")
+        let poengS = document.getElementById("poengS")
+        let knapp = document.getElementById("knapp")
+
+        let poengMaskin = 0
+        let poengSpiller = 0
+
+        let ferdig = false
+
+        function kjør(tall) {
+            if (!ferdig) {
+                rnd = Math.floor(Math.random() * 3)
+                maskinValg.innerHTML = `<img src="${bilder[rnd]}">`
+                rnd++
+                if (tall == rnd) {
+                    vinner.innerHTML = "Uavgjort!"
+                } else if (tall == 1 && rnd == 2) {
+                    poengMaskin += 1
+                    vinner.innerHTML = "Datamaskinen vannt!"
+                    poengD.innerHTML = `Poeng: ${poengMaskin}`
+                    vinn()
+                } else if (tall == 1 && rnd == 3) {
+                    poengSpiller += 1
+                    vinner.innerHTML = "Du vannt!"
+                    poengS.innerHTML = `Poeng: ${poengSpiller}`
+                    vinn()
+                } else if (tall == 2 && rnd == 3) {
+                    poengMaskin += 1
+                    vinner.innerHTML = "Datamaskinen vannt!"
+                    poengD.innerHTML = `Poeng: ${poengMaskin}`
+                    vinn()
+                } else if (tall == 2 && rnd == 1) {
+                    poengSpiller += 1
+                    vinner.innerHTML = "Du vannt!"
+                    poengS.innerHTML = `Poeng: ${poengSpiller}`
+                    vinn()
+                } else if (tall == 3 && rnd == 1) {
+                    poengMaskin += 1
+                    vinner.innerHTML = "Datamaskinen vannt!"
+                    poengD.innerHTML = `Poeng: ${poengMaskin}`
+                    vinn()
+                } else if (tall == 3 && rnd == 2) {
+                    poengSpiller += 1
+                    vinner.innerHTML = "Du vannt!"
+                    poengS.innerHTML = `Poeng: ${poengSpiller}`
+                    vinn()
+                }
+            }
+        }
+        function vinn() {
+            if (poengSpiller >= 2 || poengMaskin >= 2) {
+                if (poengSpiller == 2) {
+                    vinner.innerHTML = "Spillet er ferdig! Du vannt!"
+                    knapp.innerHTML = `<input type="button" value="Start på nytt" onclick="relaod()">`
+                    ferdig = true
+                } else {
+                    ferdig = true
+                    vinner.innerHTML = "Spiller er ferdig! Du tapte!"
+                    knapp.innerHTML = `<input type="button" value="Start på nytt" onclick="relaod()">`
+                }
+            }
+        }
+        function relaod() {
+            location.reload()
+        }
+    </script>
+</body>
+
+</html>

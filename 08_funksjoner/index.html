@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function rekke() {
+            let tall = [1]
+            let a = 0;
+            let b = 1;
+            for (i = 0; i < 100; i++){
+                tall.push(a+b)
+                b = a + b
+                a = b - a
+            }
+            return tall
+        }
+        
+        function liste(liste) {
+            let output = []
+            let a = 0
+            liste.forEach(tall => {
+                output.push(tall/a)
+                a = tall
+            }) 
+            return output
+        }
+
+        console.log(liste(rekke()))
+    </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    code {
+      display: block;
+      white-space: pre-wrap;
+      background-color: lightgrey;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 10px;
+    }
+
+    th {
+      background-color: grey;
+    }
+  </style>
+
+  <h1>Oppgave 1</h1>
+  <hr />
+  <ol type="a">
+    <li>Sjekk konsollen</li>
+    <br />
+    <li>Kommentarer gjør det lettere for mennesker å forså hva koden gjør</li>
+    <br />
+    <li>Oppgang mangler '' og adresse legger de sammen uten mellomrom</li>
+    <br />
+    <li>Sjekk konsollen</li>
+  </ol>
+  <br />
+  <h1>Oppgave 2</h1>
+  <hr />
+  <p>
+    Heltallsdivisjon runder ned når den deler, så når du ganger igjen vil ikke
+    tallet bli det samme. Heltallsdivisjon er nyttig hvis du trenger hele
+    tall, og vil ignorere resten
+  </p>
+  <br />
+  <h1>Oppgave 3</h1>
+  <hr />
+  <ol type="a">
+    <li>
+      <code>
+        '150' = antall blomster i bedet 15 % økning pr uke = 0.15 antall
+        blomster om en uke = antall blomster i bedet + (antall blomster i
+        bedet * 15 % økning pr uke)
+      </code>
+    </li>
+    <br />
+    <li>
+      <code>
+        blomster = 150 økningPrUke = 0.15 blomsterOmEnUke = blomster +
+        (blomster * økningPrUke)
+      </code>
+    </li>
+    <br />
+    <li>
+      <code>
+        let blomster = 150; let økningPrUke = 0.15; blomsterOmEnUke = blomster
+        + blomster * økningPrUke
+      </code>
+    </li>
+    <br />
+    <li>Sjekk konsollen</li>
+  </ol>
+
+  <h1>Oppgave 4</h1>
+  <hr />
+  <p>Sjekk konsollen</p>
+
+  <h1>Oppgave 5</h1>
+  <hr />
+  <p>Hvor mange småkaker vil du ha?</p>
+  <input type="text" id="mengde" placeholder="36..." oninput="justerMengde()" />
+  <p id="output"></p>
+  <br /><br />
+  <table>
+    <tr>
+      <th>Ingrediens</th>
+      <th>Mengde</th>
+    </tr>
+    <tr>
+      <td>Smør</td>
+      <td id="smør">100 g</td>
+    </tr>
+    <tr>
+      <td>Hvetemel</td>
+      <td id="hvetemel">180 g</td>
+    </tr>
+    <tr>
+      <td>Brunt sukker</td>
+      <td id="sukker">350 g</td>
+    </tr>
+    <tr>
+      <td>Egg</td>
+      <td id="egg">4</td>
+    </tr>
+    <tr>
+      <td>Bakepulver</td>
+      <td id="bakepulver">1 ts</td>
+    </tr>
+  </table>
+
+  <br /><br /><br />
+  <h1>Oppgave 6</h1>
+  <hr />
+  <h3>Kalkulator for sylinder</h3>
+  <br />
+  <p id="error"></p>
+  <br />
+  <p>Skriv inn målene til din sylinder:</p>
+  <input type="text" id="radius" placeholder="Radius" oninput="volumSylinder()" />
+  cm. <br /><br />
+  <input type="text" id="høyde" placeholder="Høyde" oninput="volumSylinder()" />
+  cm. <br /><br /><br />
+  <table>
+    <tr>
+      <th>Omkrets grunnflate</th>
+      <th>Areal grunnflate</th>
+      <th>Volum sylinder</th>
+      <th>Areal overflate</th>
+    </tr>
+    <tr>
+      <td id="omkrets"></td>
+      <td id="arealg"></td>
+      <td id="volum"></td>
+      <td id="arealo"></td>
+    </tr>
+  </table>
+  <br /><br /><br /><br />
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function isArray(input) {
+            return input instanceof Array
+        }
+
+        console.log(isArray([1,5,6]))
+        console.log(isArray("Text"))
+
+        function shuffle(array){
+            let i = array.length
+            let temp, rand;
+              
+            while (0 !== i) {
+              rand = Math.floor(Math.random() * i);
+              i -= 1;
+              
+              temp = array[i];
+              array[i] = array[rand];
+              array[rand] = temp;
+            }
+              
+            return array;      
+        }
+        let arr = [1,5,6,3,10,7,8,11,2]
+        console.log(arr)
+        console.log(shuffle(arr))
+    </script>
+</body>
+</html>

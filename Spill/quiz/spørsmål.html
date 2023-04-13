@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .alternativ {
+            background-color: lightgray;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border-style: solid;
+            border-color: black;
+            border-width: 1px;
+        }
+
+        .alternativ:hover {
+            background-color: grey;
+        }
+
+        .container {
+            border-style: solid;
+            border-radius: 5px;
+            border-color: black;
+            border-width: 2px;
+        }
+
+        .tittel {
+            text-align: center;
+        }
+    </style>
+
+    <div class="container-sm" id="innhold">
+        <h1>Velkommen</h1>
+        <input type="button" value="Start" onclick="skrivUtSpørsmål(0)">
+    </div>
+    <script>
+        let spørsmål = [{
+            spørsmål: "Test",
+            alternativ: ["svar1", "svar2", "svar3", "svar4"],
+            fasit: 2
+        }, {
+            spørsmål: "Test2",
+            alternativ: ["svar1", "svar2", "svar3", "svar4"],
+            fasit: 2
+        }, {
+            spørsmål: "",
+            alternativ: [],
+            fasit: 2
+        }, {
+            spørsmål: "",
+            alternativ: [],
+            fasit: 2
+        }, {
+            spørsmål: "",
+            alternativ: [],
+            fasit: 2
+        }, {
+            spørsmål: "",
+            alternativ: [],
+            fasit: 2
+        }, {
+            spørsmål: "",
+            alternativ: [],
+            fasit: 2
+        }, {
+            spørsmål: "",
+            alternativ: [],
+            fasit: 2
+        }, ]
+        let innhold = document.getElementById("innhold")
+
+
+
+
+        function skrivUtSpørsmål(i) {
+            innhold.innerHTML = ""
+
+            let alternativer = '<div class="container">'
+
+            spørsmål[i].alternativ.forEach((a, j) => {
+                if (j % 2 == 0) {
+                    alternativer += `
+                        <div class="row">
+                          <div class="col-sm">
+                            <div class="alternativ" onclick="svar(${i}, ${j})">
+                            ${a}
+                            </div>
+                          </div>`
+
+                } else {
+                    alternativer += `
+                        <div class="col-sm">
+                            <div class="alternativ" onclick="svar(${i}, ${j})">
+                                ${a}
+                            </div>
+                          </div>
+                        </div>`
+                }
+            })
+
+            innhold.innerHTML += `
+                    <div id="sporsmal${i}">
+                        <br><br><br><br>
+                        <h3 class="tittel">${spørsmål[i].spørsmål}</h3>
+                        <br>
+                        ${alternativer}
+                    </div>
+                    </div>
+                    </div>`
+
+        }
+
+        let svarA = []
+
+        function svar(spm, alt) {
+            svarA.push(alt)
+            if (spørsmål[spm + 1]) {
+                skrivUtSpørsmål(spm + 1)
+            } else {
+                regnUtScore()
+            }
+        }
+
+        function regnUtScore() {
+            svarA.forEach(spm => {
+                
+            })
+        }
+    </script>
+
+
+</body>
+
+</html>

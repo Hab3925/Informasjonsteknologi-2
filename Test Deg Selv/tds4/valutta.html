@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="number" id="input">
+    <input type="button" value="NOK til USD" id="knapp">
+    <input type="button" value="USD til NOK" id="knapp2">
+    <p id="output"></p>
+
+    <script>
+        const input = document.querySelector("#input")
+        const knapp = document.querySelector("#knapp")
+        const knapp2 = document.querySelector("#knapp2")
+        const output = document.querySelector("#output")
+
+        let nokTilUsd = 9.24
+
+        knapp.addEventListener("click", e => {
+            if (input.value) {
+                output.innerHTML = `${input.value} NOK er ${(input.value / nokTilUsd).toFixed(2)} USD`
+            } else {
+                output.innerHTML = `Du må skrive et tall!`
+            }
+        })
+
+        knapp2.addEventListener("click", e => {
+            if (input.value) {
+                output.innerHTML = `${input.value} USD er ${(input.value * nokTilUsd).toFixed(2)} NOK`
+            } else {
+                output.innerHTML = `Du må skrive et tall!`
+            }
+        })
+
+    </script>
+</body>
+
+</html>

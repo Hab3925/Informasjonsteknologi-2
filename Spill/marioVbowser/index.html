@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            background-image: url("https://i.pinimg.com/originals/2b/31/4b/2b314be6c6e9c9a20a6d961a70203365.jpg");
+        }
+
+        #bane {
+            display: grid;
+            grid-gap: 40px;
+            margin-top: 80px;
+            background-size: 100%;
+        }
+
+        img {
+            height: 100px;
+            width: 70px;
+        }
+
+        .spiller {
+            width: 0%;
+            height: 100px;
+            text-align: right;
+            background-color: white;
+        }
+
+        #marioFart {
+            margin-top: 0px;
+            color: red;
+        }
+
+        #warioFart {
+            color: yellow;
+        }
+    </style>
+    <input type="button" value="Kjør" id="kjør">
+    <div id="bane">
+        <div id="mario" class="spiller">
+            <img src="https://emojiforu.com/wp-content/uploads/2018/10/mario.jpg" />
+            <p id="marioFart">Fart: 0</p>
+        </div>
+        <div id="wario" class="spiller">
+            <img
+                src="https://www.hobbydb.com/processed_uploads/subject_photo/subject_photo/image/25525/1495493401-1830-9870/Wario_large.jpg" />
+            <p id="warioFart">Fart: 0</p>
+
+        </div>
+    </div>
+
+    <script>
+        const kjør = document.getElementById("kjør")
+        const marioFart = document.getElementById("marioFart")
+        const warioFart = document.getElementById("warioFart")
+        const marioSpiller = document.getElementById("mario")
+        const warioSpiller = document.getElementById("wario")
+
+        const vinn = new Audio("lydfiler/vinn.mp3")
+        const tap = new Audio("lydfiler/tap.mp3")
+        const sopp = new Audio("lydfiler/sopp.mp3")
+        const warioPowerUp = new Audio("lydfiler/vine.mp3")
+        const coin = new Audio("lydfiler/coin.mp3")
+        const oneUp = new Audio("lydfiler/oneUp.mp3")
+        const powerDown = new Audio("lydfiler/powerDown.mp3")
+        const warioPowerDown = new Audio("lydfil/breakblock.mp3")
+
+        let cooldown = false
+        let cd = () => {
+            cooldown = true
+            setTimeout(() => {
+                cooldown = false
+            }, 1000)
+        }
+
+        kjør.addEventListener("click", async e => {
+            let marioFremgang = 0
+            let warioFremgang = 0
+
+            let marioMultiplier = 1
+            let warioMultiplier = 1
+
+            const race = setInterval(() => {
+                let mario = Math.ceil(Math.random() * 10)
+                let wario = Math.ceil(Math.random() * 10)
+                console.log(marioMultiplier, warioMultiplier)
+
+                if (marioFremgang >= 100) {
+                    vinn.play()
+                    clearInterval(race)
+                } else if (warioFremgang >= 100) {
+                    tap.play()
+                    clearInterval(race)
+                }
+
+                if (!cooldown) {
+                    if (mario == 10) {
+                        sopp.play()
+                        marioMultiplier = 2
+                        cd()
+                    }
+                    if (wario == 10) {
+                        warioPowerUp.play()
+                        marioMultiplier = 2
+                        cd()
+                    }
+                    if (mario >= 7 && marioMultiplier !== 2 && mario !== 10) {
+                        oneUp.play()
+                        marioMultiplier = 1.5
+                        cd()
+                    }
+                    if (wario >= 7 && warioMultiplier !== 2 && wario !== 10) {
+                        coin.play()
+                        warioMultiplier = 1.5
+                        cd()
+                    }
+                    if (mario <= 3) {
+                        powerDown.play()
+                        marioMultiplier = 0.75
+                        cd()
+                    }
+                    if (wario <= 3) {
+                        warioPowerDown.play()
+                        warioMultiplier = 0.75
+                        cd()
+                    }
+
+                }
+
+
+                marioFremgang += mario * marioMultiplier / 10
+                warioFremgang += wario * warioMultiplier / 10
+
+                marioFart.innerHTML = `Fart: ${marioMultiplier}`
+                warioFart.innerHTML = `Fart: ${warioMultiplier}`
+
+                marioSpiller.style.width = `${marioFremgang}%`
+                warioSpiller.style.width = `${warioFremgang}%`
+
+            }, 50)
+        })
+    </script>
+</body>
+
+</html>

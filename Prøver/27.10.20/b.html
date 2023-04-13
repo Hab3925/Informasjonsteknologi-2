@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #antPersoner{
+            width: 120px;
+        }
+        #pris {
+            width: 50px;
+        }
+    </style>
+    <h1>2.1 Hyttetur b)</h1><hr>
+
+    <input type="number" id="antPersoner" placeholder="Antall Personer" min="1" max="5">
+    <input type="number" id="pris" placeholder="Pris">
+    <input type="button" value="Beregn pris per pers" id="knapp">
+    <p id="output"></p>
+
+    <script>
+        const antPersE = document.getElementById("antPersoner")
+        const knapp = document.getElementById("knapp")
+        const output = document.getElementById("output")
+
+        let prisE = document.getElementById("pris")
+
+        knapp.addEventListener('click', e => {
+            if(antPersE.value && prisE.value){
+                if(prisE.value < 0) return output.innerHTML = "Prisen kan ikke være lavere enn null!"
+                let antPers = antPersE.value
+                let pris = prisE.value
+                if(antPers <= 5 && antPers >= 1) {
+                    output.innerHTML = `Det koster ${pris/antPers}kr for en helg for ${antPers} personer`
+                } else{
+                    output.innerHTML = `Du må skrive inn antall personer mellom 1 og 5`
+                }
+            }else{
+                output.innerHTML = `Du må skrive inn antall personer og en pris`
+            }
+        })
+    </script>
+</body>
+</html>

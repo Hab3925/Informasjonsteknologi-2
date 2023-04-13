@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>A)</h1>
+    <input type="button" value="Skriv ut listen" id="skriv">
+    
+    <ol id="liste"></ol>
+    <script>
+        let minListe = ["FA", "KB", "OC", "HD", "GE", "IF", "AG", "NH", "LI", "JJ", "BK", "ML"]
+
+        const liste = document.getElementById("liste")
+        const skriv = document.getElementById("skriv")
+        skriv.addEventListener('click', () => {
+            minListe.forEach(e => {
+                liste.innerHTML += `<li>${e}</li>` 
+            })
+        })
+    </script>
+    <hr>
+    <h1>B)</h1>
+    <input type="button" value="Skriv ut alfabetisk" id="alfabetKnapp">
+    <ol id="alfabetListe"></ol>
+
+    <script>
+        const aKnapp = document.getElementById("alfabetKnapp")
+        const aListe = document.getElementById("alfabetListe")
+
+        aKnapp.addEventListener('click', () => {
+            let output = minListe
+            output.sort()
+            output.forEach(e => {
+                aListe.innerHTML += `<li>${e}</li>`
+            })
+        })
+    </script>
+    <hr>
+    <h1>C)</h1>
+    <ol id="annenHvert"></ol>
+    <script>
+        const annenHvert = document.getElementById("annenHvert")
+        for(i = 0; i < minListe.length; i += 2){
+            annenHvert.innerHTML += `<li>${minListe[i]}</li>`
+        }
+    </script>
+    <hr>
+    <h1>D)</h1>
+    <input type="button" value="Slett 4 og 5" id="slett">
+    <ol id="slettListe"></ol>
+    <script>
+        const slett = document.getElementById("slett")
+        const slettListe = document.getElementById("slettListe")
+
+        slett.addEventListener('click', () => {
+            let output = minListe
+            output.splice(4,2)
+            output.forEach(e => {
+                slettListe.innerHTML += `<li>${e}</li>`
+            })
+        })
+    </script>
+</body>
+</html>

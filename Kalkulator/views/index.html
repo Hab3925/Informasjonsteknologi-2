@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+
+
+</head>
+
+<body>
+    <style>
+        #display {
+            border: solid black 1px;
+            width: 100%;
+            height: 5vh;
+            padding: 10px;
+        }
+
+        .container-sm {
+            width: 400px;
+            margin: auto;
+        }
+
+        #buttons {
+            background-color: rgb(47, 47, 47);
+            display: grid;
+            grid-template-rows: repeat(5, 1fr);
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 10px;
+            padding: 15px;
+            border-radius: 15px;
+            width: 100%;
+        }
+
+        .knapp {
+            display: inline-block;
+            font-size: 20px;
+            color: lightgrey;
+            text-align: center;
+            border-radius: 100px;
+            padding: 20px;
+        }
+
+
+        .knapp:hover {
+            background-color: rgb(48, 149, 199);
+        }
+    </style>
+
+    <div class="container-sm">
+        <h1>Kalkulator</h1>
+        <div id="display"></div> <br><br>
+        <div id="buttons" class="container-sm"></div>
+    </div>
+
+
+    <script>
+        let buttons = document.getElementById("buttons")
+        let display = document.getElementById("display")
+
+        let knapper = [
+            "sin", "cos", "tan", "(", ")",
+            7, 8, 9, "DEL", "AC",
+            4, 5, 6, "&times;", "&divide;",
+            1, 2, 3, "+", "-",
+            0, ".", "π", "Ans", "="
+        ]
+
+        let operatorer = ['+', '-', '×', '÷']
+
+        knapper.forEach((knapp, i) => {
+            buttons.innerHTML += `<div class="knapp" onclick="klikk('${knapp}')">${knapp}</div>`
+        })
+
+        let inputs = []
+        let Ans = null
+        let clear = false
+        let parantes = true
+        let cache = 0
+        let negativ = false
+
+
+        function klikk(knapp) {
+            if (clear) {
+                display.innerHTML = ""
+                inputs = []
+                clear = false
+            }
+
+            //Hvis knappen er et tall
+            if (knapp.match(/\d/)) {
+                if (inputs[0]) {
+                    if (negativ) {
+                        inputs[inputs.length - 1] = `${inputs[inputs.length - 1]}` + knapp
+                        skrivUt(knapp)
+                        negativ = false
+                    } else if (inputs[inputs.length - 1].match(/\d/)) {
+                        inputs[inputs.length - 1] = `${inputs[inputs.length - 1]}` + knapp
+                        skrivUt(knapp)
+                    } else {
+                        inputs.push(knapp)
+                        skrivUt(knapp)
+                    }
+                } else {
+                    inputs.push(knapp)
+                    skrivUt(knapp)
+                }
+
+                //Hvis knappen er .
+            } else if (knapp == ".") {
+                if (inputs[inputs.length - 1].match(/\d\.{1}/)) {
+                    return
+                } else if (inputs[inputs.length - 1].match(/\d/)) {
+                    inputs[inputs.length - 1] = `${inputs[inputs.length - 1]}` + knapp
+                    skrivUt(knapp)
+                }
+                //Hvis knappen er en operator
+            } else if (~operatorer.indexOf(knapp)) {
+                if (inputs[0]) {
+                    if (~operatorer.indexOf(inputs[inputs.length - 1])) {
+                        return
+                    } else {
+                        inputs.push(knapp)
+                        skrivUt(knapp)
+                    }
+                } else if (knapp == "-") {
+                    inputs.push(knapp)
+                    skrivUt(knapp)
+                    negativ = true
+                } else return
+
+                //Hvis knappen er pi
+            } else if (knapp == "π") {
+                if (inputs[0]) {
+                    if (inputs[inputs.length - 1].match(/\d/)) {
+                        inputs[inputs.length - 1] = `${+(parseFloat(inputs[inputs.length - 1]) * Math.PI).toFixed(6)}`
+                        skrivUt(knapp)
+                    } else {
+                        inputs.push(Math.PI.toFixed(6) + "")
+                        skrivUt(knapp)
+                    }
+                } else {
+                    inputs.push(Math.PI.toFixed(6) + "")
+                    skrivUt(knapp)
+                }
+
+                //Hvis knappen er DEL
+            } else if (knapp == "DEL") {
+                inputs.splice(-1, 1)
+                display.innerHTML = inputs.join("")
+
+                //Hvis knappen er AC
+            } else if (knapp == "AC") {
+                display.innerHTML = ""
+                inputs = []
+                parantes = true
+                cache = 0
+                //Hvis knappen er Ans
+            } else if (knapp == "Ans") {
+                if (Ans != null) {
+                    if (inputs[0]) {
+                        if (inputs[inputs.length - 1].match(/\d/)) {
+                            inputs[inputs.length - 1] = `${+(parseFloat(inputs[inputs.length - 1]) * Ans).toFixed(6)}`
+                            skrivUt(knapp)
+                        } else {
+                            inputs.push(Ans + "")
+                            skrivUt(knapp)
+                        }
+                    } else {
+                        inputs.push(Ans + "")
+                        skrivUt(knapp)
+                    }
+                }
+            } else if (knapp == "(") {
+                display.innerHTML += "("
+                inputs.push(knapp)
+                parantes = false
+            } else if (knapp == ")") {
+                if (parantes) return
+                display.innerHTML += ")"
+                inputs.push(knapp)
+                parantes = true
+            } else if (knapp == "sin") {
+                display.innerHTML += "sin("
+                inputs.push(knapp)
+                inputs.push("(")
+                parantes = false
+            } else if (knapp == "cos") {
+                display.innerHTML += "cos("
+                inputs.push(knapp)
+                inputs.push("(")
+                parantes = false
+            } else if (knapp == "tan") {
+                display.innerHTML += "tan("
+                inputs.push(knapp)
+                inputs.push("(")
+                parantes = false
+            } else if (knapp == "=") {
+                if (!parantes) return
+                kalkuler(inputs)
+            }
+        }
+
+        function skrivUt(tall, clear) {
+            if (clear) {
+                display.innerHTML = ""
+                display.innerHTML = tall
+                negativ = false
+            } else {
+                display.innerHTML += tall
+            }
+        }
+
+        function kalkuler(inputs) {
+            cache = 0
+            console.log(inputs)
+            let multiplikator = ['×', '÷']
+            let j
+            if (!inputs[0]) {
+                clear = true
+                return skrivUt(0, true)
+            }
+            if (!inputs[1]) return skrivUt(inputs[0], true)
+            inputs.forEach((input, i) => {
+                if (i < j) return
+                if (input.match(/\d/)) {
+                    if (!~multiplikator.indexOf(inputs[i + 1])) {
+                        if (!~multiplikator.indexOf(inputs[i + 3])) {
+                            //pluss
+                            if (inputs[i + 1] == "+") {
+                                if (cache) {
+                                    cache = pluss(parseFloat(cache), parseFloat(inputs[i + 2]))
+                                } else {
+                                    cache = pluss(parseFloat(input), parseFloat(inputs[i + 2]))
+                                }
+                            }
+                            //minus
+                            if (inputs[i + 1] == "-") {
+                                if (cache) {
+                                    cache = minus(parseFloat(cache), parseFloat(inputs[i + 2]))
+                                } else {
+                                    cache = minus(parseFloat(input), parseFloat(inputs[i + 2]))
+                                }
+                            }
+                            skrivUt(cache, true)
+                            Ans = cache
+                            clear = true
+                        } else {
+                            //Gange eller dele alle sammenhengende multiplikatorer
+                            j = i + 3
+                            let multiCache
+
+                            while (~multiplikator.indexOf(inputs[j])) {
+                                if (inputs[j] == "×") {
+                                    if (multiCache) {
+                                        multiCache = gange(multiCache, parseFloat(inputs[j + 1]))
+                                    } else {
+                                        multiCache = gange(parseFloat(inputs[j - 1]), parseFloat(inputs[j + 1]))
+                                    }
+                                } else if (inputs[j] == "÷") {
+                                    if (multiCache) {
+                                        multiCache = dele(multiCache, parseFloat(inputs[j + 1]))
+                                    } else {
+                                        multiCache = dele(parseFloat(inputs[j - 1]), parseFloat(inputs[j + 1]))
+                                    }
+                                }
+                                j += 2
+                            }
+                            //Legge til eller trekke fra tallet før
+                            if (inputs[i + 1] == "+") cache = pluss(parseFloat(input), multiCache)
+                            if (inputs[i + 1] == "-") cache = minus(parseFloat(input), multiCache)
+                            skrivUt(cache, true)
+                            Ans = cache
+                            clear = true
+                        }
+                    } else if (inputs[i + 1] == "×") {
+                        //gange
+                        cache = gange(parseFloat(input), parseFloat(inputs[i + 2]))
+                        skrivUt(cache, true)
+                        Ans = cache
+                        clear = true
+                    } else if (inputs[i + 1] == "÷") {
+                        //dele
+                        cache = dele(parseFloat(input), parseFloat(inputs[i + 2]))
+                        skrivUt(cache, true)
+                        Ans = cache
+                        clear = true
+                    }
+                }
+            })
+        }
+
+        function gange(tall1, tall2) {
+            return +(tall1 * tall2).toFixed(6)
+        }
+
+        function pluss(tall1, tall2) {
+            return +(tall1 + tall2).toFixed(6)
+        }
+
+        function minus(tall1, tall2) {
+            return +(tall1 - tall2).toFixed(6)
+        }
+
+        function dele(tall1, tall2) {
+            return +(tall1 / tall2).toFixed(6)
+        }
+    </script>
+</body>
+
+</html>

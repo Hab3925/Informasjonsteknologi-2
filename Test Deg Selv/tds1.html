@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Deg Selv
+    </title>
+</head>
+
+<body>
+    <style>
+        code {
+            background-color: lightgrey;
+            padding: 2px;
+            border-radius: 2px;
+        }
+    </style>
+    <h1>1.1</h1>
+    <hr>
+    <ol type="a">
+        <li>Stor Bokstav i "Et", og mellomrom mellom "Et" og "tall". <code>var etTall = 123;</code></li>
+        <li>Variabelen starter med et tall. <code>var treVariabelen = 3;</code></li>
+        <li>Variabelen starter med stor bokstav og har et tall. <code>var variabelEn = "teksten skal hit";</code></li>
+        <li>Variabelen skiller ikke ordene med store bokstaver. <code>var detFørsteTallet = "1";</code></li>
+        <li>Variabelen begynner med %. <code>var prosentAvTallet = 15;</code></li>
+        <li>Variabelen starter med stor bokstav. <code>var summenAvRegnestykketEr = 16;</code></li>
+    </ol>
+
+    <br>
+    <h1>2.1</h1>
+    <hr>
+    <p id="multiplikasjon"></p>
+
+    <script>
+        let fem = 5;
+        let ti = 10;
+        document.getElementById("multiplikasjon").innerHTML = `${fem} ganger ${ti} er ${fem * ti}`;
+    </script>
+
+    <br>
+    <h1>2.2</h1>
+    <hr>
+
+    <p id="e-post"></p>
+    <script>
+        let fornavn = "fornavn";
+        let etternavn = "etternavn";
+        let domene = "domene";
+        let ePost = `${fornavn}.${etternavn}@${domene}.no`
+
+        document.getElementById("e-post").innerHTML = ePost
+    </script>
+
+    <br>
+    <h1>2.3</h1>
+    <hr>
+    <ol type="a">
+        <li>Regenestykket står inne i en string</li>
+        <li>
+            Sjekk konsollen ;)
+            <script>
+                let tall = 42;
+                console.log(tall)
+            </script>
+        </li>
+        <li>Den printer to ulike tall fordi <code>parseInt()</code> runder ned til et helt tall</li>
+    </ol>
+
+    <br>
+    <h1>3.1</h1>
+    <hr>
+    <p>Trykk på knappen for å få en romkode</p>
+    <p id="romkode"></p>
+    <input type="button" value="Tilfeldig romkode" onclick="romKode()">
+
+    <script>
+        romKode = () => {
+            let etg = Math.floor(Math.random() * 6) + 1;
+            let romType = ["Kontor", "Møterom", "Lager", "Samtale"]
+            let romNummer = Math.floor(Math.random() * 25) + 1;
+            let rom = romType[Math.floor(Math.random() * romType.length)].charAt(0)
+            if (romNummer.toString().length < 2) romNummer = "0" + romNummer;
+            let romkode = `0${etg}${rom}${romNummer}`
+
+            document.getElementById("romkode").innerHTML = romkode
+        }
+    </script>
+</body>
+
+</html>

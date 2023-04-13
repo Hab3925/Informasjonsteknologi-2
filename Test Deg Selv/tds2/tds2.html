@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-gap: 5px;
+        }
+
+        .box {
+            height: 80px;
+            background-color: #17181c;
+            display: grid;
+            place-items: center;
+            font-size: 50px;
+        }
+    </style>
+    <h1 style="color: white;">Oppgave 3.1</h1>
+    <hr>
+    <input type="button" value="Legg til 1" id="en">
+    <input type="button" value="Legg til 10" id="ti">
+    <input type="button" value="Fjern alle" id="fjern">
+
+
+    <div id="grid"></div>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>

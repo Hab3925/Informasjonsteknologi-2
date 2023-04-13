@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <style>
+      land:hover {
+        opacity: 0.5;
+      }
+    </style>
+    <input type="button" id="knapp" />
+    <svg
+      version="1.1"
+      id="Verdenskart"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      x="0px"
+      y="0px"
+      viewBox="0 0 1920 1080"
+      style="enable-background: new 0 0 1920 1080"
+      xml:space="preserve"
+    >
+      <style type="text/css">
+        .st0 {
+          fill: blue;
+        }
+      </style>
+      <image xlink:href="./img/verdenskart.jpg"></image>
+
+      <polygon
+        class="st0 land"
+        d="M911.57,377.15c-12.15-12.15-11.69-14.45-11.69-14.45l4.13-6.19l-4.13-3.67h-2.98v-4.82l-7.57,0.92l-2.98,5.27
+	v11.46l3.21,4.36l6.88,2.29l-1.38,2.29l2.29,0.46l0.46,2.06l-6.19,1.61l-0.92,6.65l-3.21,2.52l3.67,2.06h5.73l-0.23,1.61l-6.65,0.92
+  l-5.73,5.27h2.98l7.57-1.61l9.4-1.61h7.34l6.19-0.69v-2.75l-5.5-1.38l1.15-2.06h4.36v-5.73l-5.04-0.46"
+      />
+      <text id="test" x="100" y="100">test</text>
+    </svg>
+    <script>
+      const test = document.getElementById("test");
+      const knapp = document.getElementById("knapp");
+
+      knapp.addEventListener("click", (e) => {
+        test.setAttribute("x", "200 200");
+      });
+    </script>
+  </body>
+</html>

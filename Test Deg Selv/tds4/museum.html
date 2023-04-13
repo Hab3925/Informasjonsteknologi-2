@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="voksen">
+    <input type="text" id="barn">
+    <input type="button" value="Submit" id="submit">
+
+    <p id="kvittering"></p>
+
+    <script>
+        let antBarnE = document.getElementById("barn"),
+            antVoksE = document.getElementById("voksen"),
+            submit = document.getElementById("submit")
+
+        let prisBarn = 50,
+            prisVoksne = 100;
+
+        let kvittering = document.getElementById("kvittering")
+
+        submit.addEventListener('click', e => {
+            if (antVoksE.value && antBarnE.value) {
+                if (isNaN(parseInt(antVoksE.value))) return kvittering.innerHTML = "Du må skrive et tall for antall biletter!"
+                if (isNaN(parseInt(antBarnE.value))) return kvittering.innerHTML = "Du må skrive et tall for antall biletter!"
+
+                let antVoks = parseInt(antVoksE.value)
+                let antBarn = parseInt(antBarnE.value)
+
+                if (antBarn + antVoks >= 5) {
+                    let utskrift = `Du har bestilt ${antBarn + antVoks} billetter, ${antVoks} voksne og ${antBarn} barn. Totalprisen er kr ${(antVoks * prisVoksne + antBarn * prisBarn) * 0.2}, inklusiv grupperabatt på 20 prosent.`
+                    kvittering.innerHTML = utskrift
+                } else {
+                    let utskrift = `Du har bestilt ${antBarn + antVoks} billetter, ${antVoks} voksne og ${antBarn} barn. Totalprisen er kr ${antVoks * prisVoksne + antBarn * prisBarn}.`
+                    kvittering.innerHTML = utskrift
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
